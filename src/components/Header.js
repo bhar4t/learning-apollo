@@ -1,10 +1,18 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useReactiveVar } from '@apollo/client';
 import { AUTH_TOKEN } from '../constants';
+import { cartItemsVar } from "./LinkList";
 
 const Header = () => {
     const navigate = useNavigate();
     const authToken = localStorage.getItem(AUTH_TOKEN);
+    const cartItems = useReactiveVar(cartItemsVar);
+
+    React.useEffect(() => {
+        console.log(cartItems)
+    }, [cartItems])
+
     return (
     <div className="flex pa1 justify-between nowrap orange">
         <div className="flex flex-fixed black">

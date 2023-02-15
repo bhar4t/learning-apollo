@@ -1,8 +1,11 @@
 import React from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
+import { makeVar } from '@apollo/client';
 import Link from './Link';
 import { LINKS_PER_PAGE } from '../constants';
+
+export const cartItemsVar = makeVar([]);
 
 export const FEED_QUERY = gql`
   query FeedQuery(
@@ -95,6 +98,12 @@ const LinkList = () => {
         return { take, skip, orderBy };
     };
     const { data, loading, error, subscribeToMore } = useQuery(FEED_QUERY, { variables: getQueryVariables(isNewPage, page) });
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            cartItemsVar([1, 2, 3]);
+        }, 10000)
+    }, [])
     
       subscribeToMore({
         document: NEW_LINKS_SUBSCRIPTION,
