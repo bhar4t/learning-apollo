@@ -23,7 +23,7 @@ type Mutation {
   ): AuthPayload
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote
-  update(linkId: ID!, description: String!, url: String!): Link
+  update(linkId: ID!, description: String!, url: String!): Link!
 }
 
 type Subscription {
