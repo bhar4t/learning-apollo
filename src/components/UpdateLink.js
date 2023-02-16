@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UPDATE_LINK_MUTATION = gql`
   mutation UpdateMutation(
@@ -18,6 +18,7 @@ const UPDATE_LINK_MUTATION = gql`
 
 export default function UpdateLink() {
     const location = useLocation();
+    const navigate = useNavigate();
     const pathParams = location.pathname.split('/');
     const [formState, setFormState] = React.useState({
         description: '',
@@ -28,7 +29,8 @@ export default function UpdateLink() {
           linkId: pathParams[pathParams.length - 1],
           description: formState.description,
           url: formState.url
-        }
+        },
+        onCompleted: () => navigate('/')
     })
 
     return (
