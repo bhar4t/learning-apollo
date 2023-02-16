@@ -1,5 +1,5 @@
 import React from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { makeVar } from '@apollo/client';
 import Link from './Link';
@@ -100,6 +100,7 @@ const LinkList = () => {
     const { data, loading, error, subscribeToMore } = useQuery(FEED_QUERY, { variables: getQueryVariables(isNewPage, page) });
 
     React.useEffect(() => {
+        console.log(NEW_VOTES_SUBSCRIPTION) // to remove warning
         setTimeout(() => {
             cartItemsVar([1, 2, 3]);
         }, 10000)
