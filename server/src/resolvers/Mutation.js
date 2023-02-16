@@ -90,10 +90,32 @@ async function vote(parent, args, context, info) {
   return newVote;
 }
 
+async function update(parent, args, context, info) {
+  
+  const link = await context.prisma.link.findUnique({
+    where: { id: args.linkId }
+  });
+
+  if (!link) {
+    throw new Error('No such link found');
+  }
+
+  return context.prisma.link.update({
+    data: {
+      url: args.url,
+      description: args.description,
+    },
+    where: {
+      id: args.linkId,
+    },
+  })
+}
+
 module.exports = {
   post,
   signup,
   login,
-  vote
+  vote,
+  update
 };
 

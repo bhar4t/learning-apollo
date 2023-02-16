@@ -1,11 +1,12 @@
-import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import CreateLink from './CreateLink';
-import Header from './Header';
-import LinkList from './LinkList';
-import Login from './Login';
-import Search from './Search';
-import '../styles/App.css';
+import React from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import CreateLink from "./CreateLink";
+import Header from "./Header";
+import LinkList from "./LinkList";
+import Login from "./Login";
+import Search from "./Search";
+import UpdateLink from "./UpdateLink"
+import "../styles/App.css";
 
 function App() {
   return (
@@ -24,10 +25,8 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/search"element={<Search/>}/>
           <Route path="/top" element={<LinkList/>} />
-          <Route
-            path="/new/:page"
-            element={<LinkList/>}
-          />
+          <Route path="/new/:page" element={<LinkList/>} />
+          <Route path="/update/:id" element={<UpdateLink/>} />
         </Routes>
       </div>
     </div>

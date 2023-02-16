@@ -1,8 +1,10 @@
 import React from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import { AUTH_TOKEN, LINKS_PER_PAGE } from '../constants';
 import { timeDifferenceForDate } from '../utils';
 import { FEED_QUERY } from './LinkList';
+import { Edit, Trash } from '../icons/Icons';
 
 const VOTE_MUTATION = gql`
   mutation VoteMutation($linkId: ID!) {
@@ -27,6 +29,7 @@ const VOTE_MUTATION = gql`
 const Link = (props) => {
   const { link } = props;
   const authToken = localStorage.getItem(AUTH_TOKEN);
+  const navigate = useNavigate();
 
   const take = LINKS_PER_PAGE;
   const skip = 0;
@@ -91,10 +94,12 @@ const Link = (props) => {
           {link.description} ({link.url})
         </div>
         {(
-          <div className="f6 lh-copy gray">
+          <div onClick={() => console.log("onClick on text")} className="f6 lh-copy gray">
             {link.votes.length} votes | by{' '}
             {link.postedBy ? link.postedBy.name : 'Unknown'}{' '}
-            {timeDifferenceForDate(link.createdAt)}
+            {timeDifferenceForDate(link.createdAt)}{' '}
+            <span onClick={() => navigate(`/update/${link.id}`)}><Edit /></span>{' '}
+            <span><Trash onClick={() => console.log("navigate..")} /></span>
           </div>
         )}
       </div>
