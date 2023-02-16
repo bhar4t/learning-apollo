@@ -24,6 +24,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote
   update(linkId: ID!, description: String!, url: String!): Link!
+  remove(linkId: ID!): Link
 }
 
 type Subscription {

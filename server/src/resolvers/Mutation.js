@@ -91,7 +91,6 @@ async function vote(parent, args, context, info) {
 }
 
 async function update(parent, args, context, info) {
-  
   const link = await context.prisma.link.findUnique({
     where: { id: args.linkId }
   });
@@ -111,11 +110,28 @@ async function update(parent, args, context, info) {
   })
 }
 
+async function remove(parent, args, context, info) {
+  const link = await context.prisma.link.findUnique({
+    where: { id: args.linkId }
+  });
+
+  if (!link) {
+    throw new Error('No such link found');
+  }
+  
+  return context.prisma.link.delete({
+      where: { id: args.linkId }
+    },
+    info
+  );
+}
+
 module.exports = {
   post,
   signup,
   login,
   vote,
-  update
+  update,
+  remove,
 };
 

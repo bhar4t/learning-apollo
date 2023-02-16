@@ -26,6 +26,16 @@ const VOTE_MUTATION = gql`
   }
 `;
 
+const DELETE_LINK_MUTATION = gql`
+  mutation DeleteMutation(
+    $linkId: ID!
+  ) {
+    remove(linkId: $linkId) {
+      id
+    }
+  }
+`;
+
 const Link = (props) => {
   const { link } = props;
   const authToken = localStorage.getItem(AUTH_TOKEN);
@@ -75,6 +85,13 @@ const Link = (props) => {
       } 
   });
 
+  const [deleteLink] = useMutation(DELETE_LINK_MUTATION, {
+    variables: {
+      linkId: link.id,
+    },
+    onCompleted: () => navigate('/top')
+  })
+
   return (
     <div className="flex mt2 items-start">
       <div className="flex items-center">
@@ -99,7 +116,7 @@ const Link = (props) => {
             {link.postedBy ? link.postedBy.name : 'Unknown'}{' '}
             {timeDifferenceForDate(link.createdAt)}{' '}
             <span onClick={() => navigate(`/update/${link.id}`)}><Edit /></span>{' '}
-            <span><Trash onClick={() => console.log("navigate..")} /></span>
+            <span onClick={() => { if (window.confirm("Are you sure! want to delete this link?")) deleteLink(); }} ><Trash/></span>
           </div>
         )}
       </div>
